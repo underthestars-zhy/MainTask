@@ -1,8 +1,8 @@
 public struct MainTask {
-    let runner: (() -> ())?
+    let runner: (() async -> ())?
     
     @discardableResult
-    init(_ callBack: @escaping () -> ()) {
+    init(_ callBack: @escaping () async -> ()) {
         self.runner = callBack
         self.start()
     }
@@ -13,9 +13,9 @@ public struct MainTask {
         }
     }
     
-    @MainActor func run() {
+    @MainActor func run() async {
         if let runner = runner {
-            runner()
+            await runner()
         }
     }
 }
