@@ -1,6 +1,21 @@
 public struct MainTask {
-    public private(set) var text = "Hello, World!"
-
-    public init() {
+    let runner: (() -> ())?
+    
+    @discardableResult
+    init(_ callBack: @escaping () -> ()) {
+        self.runner = callBack
+        self.start()
+    }
+    
+    func start() {
+        Task {
+            await run()
+        }
+    }
+    
+    @MainActor func run() {
+        if let runner = runner {
+            runner()
+        }
     }
 }
