@@ -2,7 +2,7 @@ public struct MainTask {
     let runner: (() async -> ())?
     
     @discardableResult
-    init(_ callBack: @escaping () async -> ()) {
+    public init(_ callBack: @escaping () async -> ()) {
         self.runner = callBack
         self.start()
     }
